@@ -10,24 +10,24 @@ const CreateBook=() =>{
   const [title, setTitle]=useState('');
   const [author, setAuthor]=useState('');
   const [publishYear, setPublishYear]=useState('');
-  const [loading, setLoadig]=useState(false);
+  const [loading, setLoading]=useState(false);
 
   const navigate=useNavigate();
-  const handleSaveBook=()=>{
+  const handleEditBook=()=>{
     const data={
       title,
       author,
       publishYear,
     };
-    setLoadig(true);
+    setLoading(true);
     axios
-      .post('http://localhost:5555/books', data)
+      .put(`http://localhost:5555/books/${id}`, data)
       .then(()=>{
-        setLoadig(false);
+        setLoading(false);
         navigate('/');
       })
       .catch((error)=>{
-        setLoadig(false);
+        setLoading(false);
         alert('A occured happened. Please check console');
         console.log(error);
       })
@@ -65,7 +65,7 @@ const CreateBook=() =>{
             className='border-2 border-gray-5000 px-4 py-2 w-full'
             />
       </div>
-      <button className='p-2 bg-sky-300 m-8' onClick={handleSaveBook}>
+      <button className='p-2 bg-sky-300 m-8' onClick={handleEditBook}>
         Save
       </button>  
       </div>
