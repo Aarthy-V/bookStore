@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
-import {useSnackBar} from 'notistick';
+import {useSnackBar} from 'notistack';
 
 const CreateBook=() =>{
 
