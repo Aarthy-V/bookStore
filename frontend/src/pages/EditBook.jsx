@@ -4,6 +4,7 @@ import {useParams} from 'react-router-dom';
 import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner'
 import { useNavigate } from 'react-router-dom';
+import {useSnackBar} from 'notistick';
 
 const EditBook=() =>{
 
@@ -13,6 +14,7 @@ const EditBook=() =>{
   const [loading, setLoading]=useState(false);
 
   const navigate=useNavigate();
+  const {enqueueSnackbar}=useSnackBar();
   const {id}=useParams();
   useEffect(()=>{
     setLoading(true);
@@ -22,7 +24,7 @@ const EditBook=() =>{
       setPublishYear(response.data.publishYear);
       setTitle(response.data.title);
     }).catch((error)=>{
-      setLoadig(false);
+      setLoading(false);
       alert('An error happeed. Please check cosole');
       console.log(error);
     });
@@ -38,11 +40,13 @@ const EditBook=() =>{
       .post('http://localhost:5555/books', data)
       .then(()=>{
         setLoading(false);
+        enqueueSnackbar('Book edited successfully', {variant: 'success'});
         navigate('/');
       })
       .catch((error)=>{
         setLoading(false);
-        alert('A occured happened. Please check console');
+        //alert('A occured happened. Please check console');
+        enqueueSnackbar('Error', {variant: 'error'});
         console.log(error);
       })
   }

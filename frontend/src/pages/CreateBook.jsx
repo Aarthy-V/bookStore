@@ -2,8 +2,9 @@ import React, {useEffect, useState}from 'react'
 import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import BackButton from '../components/BackButton';
-import Spinner from '../components/Spinner'
+import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
+import {useSnackBar} from 'notistick';
 
 const CreateBook=() =>{
 
@@ -13,6 +14,7 @@ const CreateBook=() =>{
   const [loading, setLoading]=useState(false);
 
   const navigate=useNavigate();
+  const {enqueueSnackbar}=useSnackBar();
   const handleEditBook=()=>{
     const data={
       title,
@@ -24,11 +26,13 @@ const CreateBook=() =>{
       .put(`http://localhost:5555/books/${id}`, data)
       .then(()=>{
         setLoading(false);
+        enqueueSnackbar('Book created successfully', {variant: 'success'});
         navigate('/');
       })
       .catch((error)=>{
         setLoading(false);
-        alert('A occured happened. Please check console');
+        //alert('A occured happened. Please check console');
+        enqueueSnackbar('Error', {variant: 'error'});
         console.log(error);
       })
   }
